@@ -2,7 +2,7 @@
 
 <style>
 .frame{
-	margin:15px 30px 0px 15px;
+	margin:125px 30px 0px 15px;
 }
 .header{
 	background-color: gray;
@@ -37,7 +37,6 @@ html,body {
 
 </style>
 
-<div class="header"></div>
 <div class="frame">
 	<div class="title"><h5 style="margin-bottom: 20px">Price-<?php echo date("Y-m-d") ?></h5></div>
 	<div class="row">

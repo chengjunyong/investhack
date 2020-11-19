@@ -1,3 +1,3 @@
-<html>
-<h1>Hello world</h1>
-</html>
+<?php include 'header.php'; ?>
+
+<?php include 'footer.php'; ?>

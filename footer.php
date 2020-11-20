@@ -1,44 +1,18 @@
-
-<!-- 
-</body>
-</html> -->
-
-<!-- End #main -->
-</main>
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="container py-4">
-      <div class="copyright">
-        &copy; Copyright <strong><span>BizLand</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        <footer class="footer">
+          <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span>
+          </div>
+        </footer>
       </div>
     </div>
-  </footer><!-- End Footer -->
+  </div>
 
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-  <script src="assets/vendor/counterup/counterup.min.js"></script>
-  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
+  <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="assets/vendors/js/vendor.bundle.addons.js"></script>
+  <script src="assets/js/shared/off-canvas.js"></script>
+  <script src="assets/js/shared/misc.js"></script>
+  <script src="assets/js/demo_1/dashboard.js"></script>
+  <script src="assets/js/shared/jquery.cookie.js" type="text/javascript"></script>
 </body>
-
 </html>

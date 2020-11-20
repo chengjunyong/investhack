@@ -16,7 +16,7 @@ $value = $_GET['company'];
 <style>
 .floating-tooltip-2 {
 	width: 130px;
-	height: 300px;
+	height: 250px;
 	position: absolute;
 	display: none;
 	padding: 8px;
@@ -32,6 +32,11 @@ $value = $_GET['company'];
 	border-radius: 4px 4px 0px 0px;
   border-bottom: none;
   box-shadow: 0 2px 5px 0 rgba(117, 134, 150, 0.45);
+  margin-top: 15px;
+}
+
+.modal-backdrop.show{
+	opacity: 0.2;
 }
 </style>
 
@@ -59,7 +64,7 @@ $value = $_GET['company'];
 						</div>
 						<input id="buy_price" type='text' class='form-control' readonly value="123" style="font-size:17px"/>
 					</div>
-					<button style="margin-top:10px;width:100%;height:40px" class="btn btn-success btn-rounded">Buy</button>
+					<button style="margin-top:10px;width:100%;height:40px" class="btn btn-success btn-rounded" data-toggle="modal" data-target="#buy_modal">Buy</button>
 				</div>
 			</div>
 		</div>
@@ -76,7 +81,7 @@ $value = $_GET['company'];
 						</div>
 						<input id="sell_price" type='text' class='form-control' readonly value="123" style="font-size:17px"/>
 					</div>
-					<button style="margin-top:10px;width:100%;height:40px" class="btn btn-danger btn-rounded">Sell</button>
+					<button style="margin-top:10px;width:100%;height:40px" class="btn btn-danger btn-rounded" data-toggle="modal" data-target="#sell_modal">Sell</button>
 				</div>
 			</div>
 		</div>
@@ -121,9 +126,48 @@ $value = $_GET['company'];
 				</div>
 			</div>
 		</div>
-
-
 	</div>
+
+
+<!-- Buy Modal -->
+<div class="modal fade" id="buy_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Buy Stock</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sell Modal -->
+<div class="modal fade" id="sell_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sell Stock</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <?php include 'script.php'?>
 <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
@@ -138,7 +182,7 @@ const chart = LightweightCharts.createChart(document.querySelector(".chart"),
 		width: width, height: height,
 		leftPriceScale: {
 		scaleMargins: {
-			top: 0.4,
+			top: 0.3,
 			bottom: 0.2,
 		},
     visible: true,
@@ -146,10 +190,14 @@ const chart = LightweightCharts.createChart(document.querySelector(".chart"),
 		mode:1,
 		},
 	  rightPriceScale: {
-	    visible: false,
+	  	visible: true,
+	    scaleMargins: {
+				top: 0.4,
+				bottom: 0.2,
+			},
 		},
 		timeScale: {
-			borderVisible: false,
+			borderVisible: true,
 		},
 		grid: {
 			horzLines: {

@@ -38,6 +38,13 @@
                 <span class="menu-title">Stock</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="quiz-dashboard.php">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Quiz Challenge</span>
+              </a>
+            </li>
+
           </ul>
         </nav>
 

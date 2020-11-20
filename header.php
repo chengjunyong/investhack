@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="assets/css/shared/style.css">
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
   <body>
     <div class="container-scroller">
@@ -32,9 +33,9 @@
             </li>
             <li class="nav-item nav-category">Main Menu</li>
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="stock_list.php">
                 <i class="menu-icon typcn typcn-document-text"></i>
-                <span class="menu-title">Dashboard</span>
+                <span class="menu-title">Stock</span>
               </a>
             </li>
           </ul>

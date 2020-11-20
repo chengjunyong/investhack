@@ -9,6 +9,8 @@ if(isset($_GET['company'])){
 	header('Location:stock_list.php');
 }
 
+
+$value = $_GET['company'];
 ?>
 
 <style>

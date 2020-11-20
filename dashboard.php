@@ -36,11 +36,45 @@ if(isset($_GET['company'])){
 <div class="content-wrapper">
 	<div class="row">
 
-		<div class="col-md-12 grid-margin">
+		<div class="col-md-4 grid-margin">
+			<div class="card">
+				<div class="card-body" style="font-size: 18px;padding-bottom: 70px">
+					<h4>Backward Date</h4>
+					<input class="form-control" type="date" id="target_date" style="width:100%;height:50px;font-size:17px">
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4 grid-margin">
 			<div class="card">
 				<div class="card-body" style="font-size: 18px">
-					<h4>Backward Date</h4>
-					<input class="form-control" type="date" id="target_date" style="width:300px">
+					<h4>Buying Price</h4>
+					<div class='input-group'>
+						<div class='input-group-prepend bg-info' style='border-radius:5px'>
+							<span class='input-group-text bg-transparent'>
+								<i style='font-size:16px;color:white'>B</i>
+							</span>
+						</div>
+						<input id="buy_price" type='text' class='form-control' readonly value="123" style="font-size:17px"/>
+					</div>
+					<button style="margin-top:10px;width:100%;height:40px" class="btn btn-success btn-rounded">Buy</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4 grid-margin">
+			<div class="card">
+				<div class="card-body" style="font-size: 18px">
+					<h4>Sell</h4>
+					<div class='input-group'>
+						<div class='input-group-prepend bg-info' style='border-radius:5px'>
+							<span class='input-group-text bg-transparent'>
+								<i style='font-size:16px;color:white'>S</i>
+							</span>
+						</div>
+						<input id="sell_price" type='text' class='form-control' readonly value="123" style="font-size:17px"/>
+					</div>
+					<button style="margin-top:10px;width:100%;height:40px" class="btn btn-danger btn-rounded">Sell</button>
 				</div>
 			</div>
 		</div>
@@ -54,16 +88,16 @@ if(isset($_GET['company'])){
 							KLSE: <?php echo $company['stock_symbol']?>
 						</div >
 						<div class="col-md-6" >
-							<button style="float:right" class="btn btn-secondary btn-rounded" id="live">Back To Live</button>
+							<button style="float:right;height:50px" class="btn btn-dark btn-rounded" id="live">Back To Live</button>
 						</div>
 						<div class="col-md-4">
-							<h5>Date of Graph: <?php echo date("d-M-Y"); ?></h5>
+							<h5 id="dateOfGraph">Date of Graph: <?php echo date("d-M-Y"); ?></h5>
 						</div>
 						<div class="col-md-4">
 							<h5 id="price"></h5>
 						</div>
 						<div class="col-md-4">
-							<h5>Date: <?php echo date("d-M-Y"); ?></h5>
+							<h5>Today Date: <?php echo date("d-M-Y"); ?></h5>
 						</div>
 					</div>
 					<div class="chart"></div>
@@ -75,16 +109,11 @@ if(isset($_GET['company'])){
 			<div class="card">
 				<div class="card-body">
 					<div class="col-md-12">
-						<h4>Functional Panel</h4>
+						<h4>Information</h4>
 
-						<div class='input-group'>
-							<div class='input-group-prepend bg-info' style='border-radius:5px'>
-								<span class='input-group-text bg-transparent'>
-									<i style='font-size:16px;color:white'>B</i>
-								</span>
-							</div>
-							<input type='text' class='form-control' readonly value="" style="width:30%"/>
-						</div>
+				
+
+
 
 					</div>
 				</div>
@@ -198,19 +227,75 @@ chart.subscribeCrosshairMove(function(param) {
 //Chart Styling End Here
 
 //Main Function
-
-$.get('script/generate_date.php',{'method' : 'current'},function(data){series.setData(data);$("#price").html("Current Price: Rm "+ data[data.length-1]['value'])},'json');
+var buy_price = 0,sell_price = 0;
+$.get('script/generate_date.php',
+	{
+		'method' : 'current'
+	},function(data){
+		series.setData(data);
+		$("#price").html("Current Price: Rm "+ data[data.length-1]['value']);
+		buy_price = data[data.length-1]['value'];
+		sell_price = data[data.length-1]['value'];
+		buy_price = (buy_price * 100.19) / 100;
+		sell_price = (sell_price * 99.99) / 100;
+		$("#buy_price").val(buy_price.toFixed(4));
+		$("#sell_price").val(sell_price.toFixed(4));
+	},'json');
 
 
 $("#target_date").change(function(){
 	let date = $(this).val();
-	$.get('script/generate_date.php',{'method' : 'backward','date':date},function(data){series.setData(data);},'json');
+	$.get('script/generate_date.php',{
+		'method' : 'backward','date':date
+	},function(data){
+		series.setData(data);
+		$("#price").html("Current Price: Rm "+data[data.length-1]['value']);
+		$("#dateOfGraph").html("Date of Graph: "+data[data.length-1]['time']['day']+"-"+months[data[data.length-1]['time']['month']]+"-"+data[data.length-1]['time']['year']);
+		buy_price = data[data.length-1]['value'];
+		sell_price = data[data.length-1]['value'];
+		buy_price = (buy_price * 100.19) / 100;
+		sell_price = (sell_price * 99.99) / 100;
+		$("#buy_price").val(buy_price.toFixed(4));
+		$("#sell_price").val(sell_price.toFixed(4));
+	},'json');
+
+
 })
 
 $("#live").click(function(){
-	$.get('script/generate_date.php',{'method' : 'current'},function(data){series.setData(data);$("#price").html("Current Price: Rm "+ data[data.length-1]['value'])},'json');
+	$.get('script/generate_date.php',
+		{
+			'method' : 'current'
+		},function(data){
+			series.setData(data);
+			$("#price").html("Current Price: Rm "+ data[data.length-1]['value']);
+			buy_price = data[data.length-1]['value'];
+			sell_price = data[data.length-1]['value'];
+			buy_price = (buy_price * 100.19) / 100;
+			sell_price = (sell_price * 99.99) / 100;
+			$("#buy_price").val(buy_price.toFixed(4));
+			$("#sell_price").val(sell_price.toFixed(4));
+		},'json');
+
+	$("#dateOfGraph").html("Date of Graph: <?php echo date('d-M-Y'); ?>");
 	$("#target_date").val("");
+
 })
+
+var months = {
+     '1': 'Jan',
+     '2': 'Feb',
+     '3': 'Mar',
+     '4': 'Apr',
+     '5': 'May',
+     '6': 'Jun',
+     '7': 'Jul',
+     '8': 'Aug',
+     '9': 'Sep',
+     '10': 'Oct',
+     '11': 'Nov',
+     '12': 'Dec',
+   }
 
 </script>
 <?php include 'footer.php'?>

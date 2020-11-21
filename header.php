@@ -3,10 +3,10 @@
   $result = getUserDetail($conn);
 
   while($row = $result->fetch_array()){
-      $name = $row['name'];
-      $role = $row['role'];
-      $gold = $row['gold'];
-      $silver = $row['silver'];
+      $name = (isset($row['name'])) ? $row['name'] : '';
+      $role = (isset($row['role'])) ? $row['role'] : '';
+      $gold = (isset($row['gold'])) ? $row['gold'] : '';
+      $silver = (isset($row['silver'])) ? $row['silver'] : '';
   }
   
 ?>
@@ -52,15 +52,15 @@
                 </div>
               </a>
               <div style="margin-top: 15px;width:250px;color:white;font-size:15px;" class="row">
-                <div class="col-6 silver-wallet" style="border-right: 1px solid white;"> 
-                  <img  src="assets/images/wallet_coin/silver-medal.png" width="16px" height="16px">
-                   <p class="wallet-silver" style="display:inline-block;color:white;"><?php echo 'RM' . $silver;?> </p>
+                <div class="col-6 silver-wallet" style="border-right: 1px solid white;text-align: center"> 
+                  <img  src="assets/images/wallet_coin/silver-medal.png" width="16px" height="16px"><br/>
+                   <p class="wallet-silver" style="display:inline-block;color:white;"><?php echo 'RM' . number_format($silver,2);?> </p>
                  
                 </div>
                 
-                <div class="col-6 gold-wallet"> 
-                  <img  src="assets/images/wallet_coin/gold-medal.png" width="16px" height="16px">
-                   <p class="wallet-gold" style="display:inline-block;color:white;"><?php echo 'RM' . $gold;?> </p>
+                <div class="col-6 gold-wallet" style="text-align: center"> 
+                  <img  src="assets/images/wallet_coin/gold-medal.png" width="16px" height="16px"><br/>
+                   <p class="wallet-gold" style="display:inline-block;color:white;"><?php echo 'RM' . number_format($gold,2);?> </p>
                 </div>
               </div>
 
@@ -70,7 +70,6 @@
               <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="true" aria-controls="ui-basic">
                 <i class="menu-icon typcn typcn-coffee"></i>
                 <span class="menu-title">Stock Exchange Market</span>
-                <i class="menu-arrow"></i>
               </a>
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">

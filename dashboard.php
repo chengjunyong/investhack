@@ -12,7 +12,6 @@ $wallet = getUserProfile($conn,1);
 $wallet = $wallet->fetch_assoc();
 $silver_wallet = $wallet['silver'];  
 $gold_wallet = $wallet['gold'];
-
 $value = $_GET['company'];
 ?>
 
@@ -80,7 +79,7 @@ input{
 		<div class="col-md-4 grid-margin">
 			<div class="card">
 				<div class="card-body" style="font-size: 18px">
-					<h4>Sell</h4>
+					<h4>Selling Price</h4>
 					<div class='input-group'>
 						<div class='input-group-prepend bg-info' style='border-radius:5px'>
 							<span class='input-group-text bg-transparent'>
@@ -111,9 +110,7 @@ input{
 						<div class="col-md-4">
 							<h5 id="price"></h5>
 						</div>
-						<div class="col-md-4">
-							<h5>Today Date: <?php echo date("d-M-Y"); ?></h5>
-						</div>
+
 					</div>
 					<div class="chart"></div>
 				</div>
@@ -149,7 +146,7 @@ input{
         	<div class='input-group'>
 						<div class='input-group-prepend bg-info' style='border-radius:5px'>
 							<span class='input-group-text bg-transparent'>
-								<i style='font-size:16px;color:white'>B</i>
+								<i style='font-size:16px;color:white'>Date</i>
 							</span>
 						</div>
 						<input type='date' class='form-control transaction_date' readonly value="" style="font-size:17px"/>
@@ -159,7 +156,7 @@ input{
         	<div class='input-group'>
 						<div class='input-group-prepend bg-info' style='border-radius:5px'>
 							<span class='input-group-text bg-transparent'>
-								<i style='font-size:16px;color:white'>B</i>
+								<i style='font-size:16px;color:white'>Buy</i>
 							</span>
 						</div>
 						<input type='text' class='form-control buy_price' readonly value="" style="font-size:17px"/>
@@ -203,7 +200,7 @@ input{
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary dismiss" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -225,7 +222,7 @@ input{
         	<div class='input-group'>
 						<div class='input-group-prepend bg-info' style='border-radius:5px'>
 							<span class='input-group-text bg-transparent'>
-								<i style='font-size:16px;color:white'>B</i>
+								<i style='font-size:16px;color:white'>Date</i>
 							</span>
 						</div>
 						<input type='date' class='form-control transaction_date' readonly value="" style="font-size:17px"/>
@@ -235,10 +232,20 @@ input{
         	<div class='input-group'>
 						<div class='input-group-prepend bg-info' style='border-radius:5px'>
 							<span class='input-group-text bg-transparent'>
-								<i style='font-size:16px;color:white'>B</i>
+								<i style='font-size:16px;color:white'>Sell</i>
 							</span>
 						</div>
 						<input type='text' class='form-control sell_price' readonly value="" style="font-size:17px"/>
+					</div>
+
+					<h4 style="margin-top: 20px">Available Lot</h4>
+        	<div class='input-group'>
+						<div class='input-group-prepend bg-info' style='border-radius:5px'>
+							<span class='input-group-text bg-transparent'>
+								<i style='font-size:16px;color:white'>LOT</i>
+							</span>
+						</div>
+						<input id="r_lot" type='text' class='form-control' readonly value="" style="font-size:17px"/>
 					</div>
 
 					<div class="row" style="margin-top: 20px">
@@ -478,6 +485,7 @@ $("#buy_btn").click(function(){
 });
 
 $("#sell_btn").click(function(){
+	let credit_type;
 	if($("#target_date").val() == ""){
 		$(".transaction_date").val("<?php echo date('Y-n-j'); ?>");
 	}else{
@@ -486,14 +494,32 @@ $("#sell_btn").click(function(){
 
 	if($(".transaction_date").val() == "<?php echo date('Y-n-j'); ?>"){
 		$(".wallet_amount").val("<?php echo $gold_wallet ?>");
+		$(".wallet_amount").attr("wallet","gold");
+		credit_type = "gold";
 	}else{
 		$(".wallet_amount").val("<?php echo $silver_wallet ?>");
+		$(".wallet_amount").attr("wallet","silver");
+		credit_type = "silver";
 	}
+
+	$.post("script/transaction.php",
+		{
+			'method'   		:'getLot',
+			'stock_id' 		: <?php echo $_GET['company'];?>,
+			'user_id'	 		: '1',
+			'credit_type' : credit_type,
+		},function(data){
+			if(data != ""){
+				$("#r_lot").val(data);
+			}else{
+				$("#r_lot").val("No Available");
+			}
+		},"text");
 
 });
 
 $("#buy_lot").on("input",function(){
-	$("#buy_amount").val(($(this).val() * 100 * $(".sell_price").val()).toFixed(4));
+	$("#buy_amount").val(($(this).val() * 100 * $(".buy_price").val()).toFixed(4));
 });
 
 $("#sell_lot").on("input",function(){
@@ -514,9 +540,10 @@ $("#buy_stock").click(function(){
 			'stock_id'		: <?php echo $_GET['company']; ?>
 		},function(data){
 			if(data){
-
+				alert("Stock Purchase Successful");
+				location.reload();
 			}else{
-
+				alert("Stock Purchase Fail, Please Try Again");
 			}
 
 		},'json');
@@ -526,7 +553,29 @@ $("#buy_stock").click(function(){
 });
 
 $("#sell_stock").click(function(){
-	
+	if(parseFloat($("#r_lot").val()) >= parseFloat($("#sell_lot").val())){
+		$.post("script/transaction.php",
+		{
+			'method'			: 'sell',
+			'user_id'			: '1',
+			'lot'					: $("#sell_lot").val(),
+			'lot_price'		: $(".sell_price").val(),
+			'credit_type' : $('.wallet_amount').attr('wallet'),
+			'amount'			: parseFloat($("#sell_amount").val()),
+			'date'				: $(".transaction_date").val(),
+			'stock_id'		: <?php echo $_GET['company']; ?>
+		},function(data){
+			if(data){
+				alert("Stock Sell Successful");
+				location.reload();
+			}else{
+				alert("Stock Sell Fail, Please Try Again");
+			}
+
+		},'json');
+	}else{
+		alert("Your quantity lot is not enough to continue this transaction");	
+	}
 });
 
 </script>

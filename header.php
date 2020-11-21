@@ -3,11 +3,18 @@
   $result = getUserDetail($conn);
 
   while($row = $result->fetch_array()){
+<<<<<<< HEAD
       $name = $row['name'];
       $role = $row['role'];
       $gold = $row['gold'];
       $silver = $row['silver'];
       $photo = $row['image'];
+=======
+      $name = (isset($row['name'])) ? $row['name'] : '';
+      $role = (isset($row['role'])) ? $row['role'] : '';
+      $gold = (isset($row['gold'])) ? $row['gold'] : '';
+      $silver = (isset($row['silver'])) ? $row['silver'] : '';
+>>>>>>> 4dd485f45260cbb8aa24b8553834762016fa57d1
   }
   
 ?>
@@ -53,26 +60,37 @@
                 </div>
               </a>
               <div style="margin-top: 15px;width:250px;color:white;font-size:15px;" class="row">
-                <div class="col-6 silver-wallet" style="border-right: 1px solid white;"> 
-                  <img  src="assets/images/wallet_coin/silver-medal.png" width="16px" height="16px">
-                   <p class="wallet-silver" style="display:inline-block;color:white;"><?php echo 'RM' . $silver;?> </p>
+                <div class="col-6 silver-wallet" style="border-right: 1px solid white;text-align: center"> 
+                  <img  src="assets/images/wallet_coin/silver-medal.png" width="16px" height="16px"><br/>
+                   <p class="wallet-silver" style="display:inline-block;color:white;"><?php echo 'RM' . number_format($silver,2);?> </p>
                  
                 </div>
                 
-                <div class="col-6 gold-wallet"> 
-                  <img  src="assets/images/wallet_coin/gold-medal.png" width="16px" height="16px">
-                   <p class="wallet-gold" style="display:inline-block;color:white;"><?php echo 'RM' . $gold;?> </p>
+                <div class="col-6 gold-wallet" style="text-align: center"> 
+                  <img  src="assets/images/wallet_coin/gold-medal.png" width="16px" height="16px"><br/>
+                   <p class="wallet-gold" style="display:inline-block;color:white;"><?php echo 'RM' . number_format($gold,2);?> </p>
                 </div>
               </div>
 
             </li>
-            <li class="nav-item nav-category">Main Menu</li>
+
             <li class="nav-item">
-              <a class="nav-link" href="stock_list.php">
-                <i class="menu-icon typcn typcn-document-text"></i>
-                <span class="menu-title">Stock</span>
+              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="true" aria-controls="ui-basic">
+                <i class="menu-icon typcn typcn-coffee"></i>
+                <span class="menu-title">Stock Exchange Market</span>
               </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="stock_list.php" aria-expanded="true">Markets</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="transaction_history.php" aria-expanded="true">Transaction History</a>
+                  </li>
+                </ul>
+              </div>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" href="quiz-dashboard.php">
                 <i class="menu-icon typcn typcn-document-text"></i>
@@ -82,6 +100,8 @@
 
           </ul>
         </nav>
+
+        
 
         <!-- partial -->
         <div class="main-panel">

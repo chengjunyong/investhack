@@ -8,8 +8,10 @@ if(isset($_GET['company'])){
 }else{
 	header('Location:stock_list.php');
 }
-
-
+$wallet = getUserProfile($conn,1);
+$wallet = $wallet->fetch_assoc();
+$silver_wallet = $wallet['silver'];  
+$gold_wallet = $wallet['gold'];
 $value = $_GET['company'];
 ?>
 
@@ -38,6 +40,11 @@ $value = $_GET['company'];
 .modal-backdrop.show{
 	opacity: 0.2;
 }
+
+input{
+	font-size:17px !important;
+}
+
 </style>
 
 <div class="content-wrapper">
@@ -47,7 +54,7 @@ $value = $_GET['company'];
 			<div class="card">
 				<div class="card-body" style="font-size: 18px;padding-bottom: 70px">
 					<h4>Backward Date</h4>
-					<input class="form-control" type="date" id="target_date" style="width:100%;height:50px;font-size:17px">
+					<input class="form-control" type="date" id="target_date" max="<?php echo date('Y-n-j')?>" style="width:100%;height:50px;font-size:17px">
 				</div>
 			</div>
 		</div>
@@ -62,9 +69,9 @@ $value = $_GET['company'];
 								<i style='font-size:16px;color:white'>B</i>
 							</span>
 						</div>
-						<input id="buy_price" type='text' class='form-control' readonly value="123" style="font-size:17px"/>
+						<input type='text' class='form-control buy_price' readonly value="	" style="font-size:17px"/>
 					</div>
-					<button style="margin-top:10px;width:100%;height:40px" class="btn btn-success btn-rounded" data-toggle="modal" data-target="#buy_modal">Buy</button>
+					<button id="buy_btn" style="margin-top:10px;width:100%;height:40px" class="btn btn-success btn-rounded" data-toggle="modal" data-target="#buy_modal">Buy</button>
 				</div>
 			</div>
 		</div>
@@ -72,16 +79,16 @@ $value = $_GET['company'];
 		<div class="col-md-4 grid-margin">
 			<div class="card">
 				<div class="card-body" style="font-size: 18px">
-					<h4>Sell</h4>
+					<h4>Selling Price</h4>
 					<div class='input-group'>
 						<div class='input-group-prepend bg-info' style='border-radius:5px'>
 							<span class='input-group-text bg-transparent'>
 								<i style='font-size:16px;color:white'>S</i>
 							</span>
 						</div>
-						<input id="sell_price" type='text' class='form-control' readonly value="123" style="font-size:17px"/>
+						<input type='text' class='form-control sell_price' readonly value="" style="font-size:17px"/>
 					</div>
-					<button style="margin-top:10px;width:100%;height:40px" class="btn btn-danger btn-rounded" data-toggle="modal" data-target="#sell_modal">Sell</button>
+					<button id="sell_btn" style="margin-top:10px;width:100%;height:40px" class="btn btn-danger btn-rounded" data-toggle="modal" data-target="#sell_modal">Sell</button>
 				</div>
 			</div>
 		</div>
@@ -103,9 +110,7 @@ $value = $_GET['company'];
 						<div class="col-md-4">
 							<h5 id="price"></h5>
 						</div>
-						<div class="col-md-4">
-							<h5>Today Date: <?php echo date("d-M-Y"); ?></h5>
-						</div>
+
 					</div>
 					<div class="chart"></div>
 				</div>
@@ -117,10 +122,6 @@ $value = $_GET['company'];
 				<div class="card-body">
 					<div class="col-md-12">
 						<h4>Information</h4>
-
-				
-
-
 
 					</div>
 				</div>
@@ -140,10 +141,66 @@ $value = $_GET['company'];
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <div>
+        	<h4>Date</h4>
+        	<div class='input-group'>
+						<div class='input-group-prepend bg-info' style='border-radius:5px'>
+							<span class='input-group-text bg-transparent'>
+								<i style='font-size:16px;color:white'>Date</i>
+							</span>
+						</div>
+						<input type='date' class='form-control transaction_date' readonly value="" style="font-size:17px"/>
+					</div>
+
+        	<h4 style="margin-top: 20px">Current Buying Price</h4>
+        	<div class='input-group'>
+						<div class='input-group-prepend bg-info' style='border-radius:5px'>
+							<span class='input-group-text bg-transparent'>
+								<i style='font-size:16px;color:white'>Buy</i>
+							</span>
+						</div>
+						<input type='text' class='form-control buy_price' readonly value="" style="font-size:17px"/>
+					</div>
+
+					<div class="row" style="margin-top: 20px">
+						<div class="col-md-6">
+							<h4>Quantity Lot <small>(1 x 100)</small></h4>
+							<input id="buy_lot" type="number" class="form-control" min=1>
+						</div>
+
+						<div class="col-md-6">
+							<h4>Total Amount</h4>
+							<div class='input-group'>
+								<div class='input-group-prepend bg-info' style='border-radius:5px'>
+									<span class='input-group-text bg-transparent'>
+										<i style='font-size:16px;color:white'>RM</i>
+									</span>
+								</div>
+								<input id="buy_amount" type="text" class="form-control" value="" readonly />
+							</div>
+						</div>
+
+						<div class="col-md-12" style="text-align: center;margin-top: 20px">
+							<h4>Current Wallet Amount</h4>
+							<div class='input-group'>
+								<div class='input-group-prepend bg-info' style='border-radius:5px'>
+									<span class='input-group-text bg-transparent'>
+										<i style='font-size:16px;color:white'>RM</i>
+									</span>
+								</div>
+								<input type="text" wallet="" class="form-control wallet_amount" readonly>
+							</div>
+						</div>
+
+						<div class="col-md-12" style="text-align: center">
+							<button id="buy_stock" class="btn btn-success btn-rounded" style="margin-top:20px;width:100%;height:40px;font-size:16px">Buy</button>
+						</div>
+					</div>
+
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary dismiss" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -160,7 +217,73 @@ $value = $_GET['company'];
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <div>
+        	<h4>Date</h4>
+        	<div class='input-group'>
+						<div class='input-group-prepend bg-info' style='border-radius:5px'>
+							<span class='input-group-text bg-transparent'>
+								<i style='font-size:16px;color:white'>Date</i>
+							</span>
+						</div>
+						<input type='date' class='form-control transaction_date' readonly value="" style="font-size:17px"/>
+					</div>
+
+        	<h4 style="margin-top: 20px">Current Selling Price</h4>
+        	<div class='input-group'>
+						<div class='input-group-prepend bg-info' style='border-radius:5px'>
+							<span class='input-group-text bg-transparent'>
+								<i style='font-size:16px;color:white'>Sell</i>
+							</span>
+						</div>
+						<input type='text' class='form-control sell_price' readonly value="" style="font-size:17px"/>
+					</div>
+
+					<h4 style="margin-top: 20px">Available Lot</h4>
+        	<div class='input-group'>
+						<div class='input-group-prepend bg-info' style='border-radius:5px'>
+							<span class='input-group-text bg-transparent'>
+								<i style='font-size:16px;color:white'>LOT</i>
+							</span>
+						</div>
+						<input id="r_lot" type='text' class='form-control' readonly value="" style="font-size:17px"/>
+					</div>
+
+					<div class="row" style="margin-top: 20px">
+						<div class="col-md-6">
+							<h4>Quantity Lot <small>(1 x 100)</small></h4>
+							<input id="sell_lot" type="number" class="form-control" min=1>
+						</div>
+
+						<div class="col-md-6">
+							<h4>Total Amount</h4>
+							<div class='input-group'>
+								<div class='input-group-prepend bg-info' style='border-radius:5px'>
+									<span class='input-group-text bg-transparent'>
+										<i style='font-size:16px;color:white'>RM</i>
+									</span>
+								</div>
+								<input id="sell_amount" type="text" class="form-control" value="" readonly />
+							</div>
+						</div>
+
+						<div class="col-md-12" style="text-align: center;margin-top: 20px">
+							<h4>Current Wallet Amount</h4>
+							<div class='input-group'>
+								<div class='input-group-prepend bg-info' style='border-radius:5px'>
+									<span class='input-group-text bg-transparent'>
+										<i style='font-size:16px;color:white'>RM</i>
+									</span>
+								</div>
+								<input type="text" wallet="" class="form-control wallet_amount" readonly>
+							</div>
+						</div>
+
+						<div class="col-md-12" style="text-align: center">
+							<button id="sell_stock" class="btn btn-danger btn-rounded" style="margin-top:20px;width:100%;height:40px;font-size:16px">Sell</button>
+						</div>
+					</div>
+					
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -264,7 +387,6 @@ chart.subscribeCrosshairMove(function(param) {
 
 	var left = param.point.x;
 
-  
  	if (left > width - toolTipWidth - toolTipMargin) {
 		left = width - toolTipWidth;
 	} else if (left < toolTipWidth / 2) {
@@ -288,10 +410,9 @@ $.get('script/generate_date.php',
 		sell_price = data[data.length-1]['value'];
 		buy_price = (buy_price * 100.19) / 100;
 		sell_price = (sell_price * 99.99) / 100;
-		$("#buy_price").val(buy_price.toFixed(4));
-		$("#sell_price").val(sell_price.toFixed(4));
+		$(".buy_price").val(buy_price.toFixed(4));
+		$(".sell_price").val(sell_price.toFixed(4));
 	},'json');
-
 
 $("#target_date").change(function(){
 	let date = $(this).val();
@@ -305,8 +426,8 @@ $("#target_date").change(function(){
 		sell_price = data[data.length-1]['value'];
 		buy_price = (buy_price * 100.19) / 100;
 		sell_price = (sell_price * 99.99) / 100;
-		$("#buy_price").val(buy_price.toFixed(4));
-		$("#sell_price").val(sell_price.toFixed(4));
+		$(".buy_price").val(buy_price.toFixed(4));
+		$(".sell_price").val(sell_price.toFixed(4));
 	},'json');
 
 
@@ -323,8 +444,8 @@ $("#live").click(function(){
 			sell_price = data[data.length-1]['value'];
 			buy_price = (buy_price * 100.19) / 100;
 			sell_price = (sell_price * 99.99) / 100;
-			$("#buy_price").val(buy_price.toFixed(4));
-			$("#sell_price").val(sell_price.toFixed(4));
+			$(".buy_price").val(buy_price.toFixed(4));
+			$(".sell_price").val(sell_price.toFixed(4));
 		},'json');
 
 	$("#dateOfGraph").html("Date of Graph: <?php echo date('d-M-Y'); ?>");
@@ -346,6 +467,116 @@ var months = {
      '11': 'Nov',
      '12': 'Dec',
    }
+
+$("#buy_btn").click(function(){
+	if($("#target_date").val() == ""){
+		$(".transaction_date").val("<?php echo date('Y-n-j'); ?>");
+	}else{
+		$(".transaction_date").val($("#target_date").val());
+	}
+
+	if($(".transaction_date").val() == "<?php echo date('Y-n-j'); ?>"){
+		$(".wallet_amount").val("<?php echo $gold_wallet ?>");
+		$(".wallet_amount").attr("wallet","gold");
+	}else{
+		$(".wallet_amount").val("<?php echo $silver_wallet ?>");
+		$(".wallet_amount").attr("wallet","silver");
+	}
+});
+
+$("#sell_btn").click(function(){
+	let credit_type;
+	if($("#target_date").val() == ""){
+		$(".transaction_date").val("<?php echo date('Y-n-j'); ?>");
+	}else{
+		$(".transaction_date").val($("#target_date").val());
+	}
+
+	if($(".transaction_date").val() == "<?php echo date('Y-n-j'); ?>"){
+		$(".wallet_amount").val("<?php echo $gold_wallet ?>");
+		$(".wallet_amount").attr("wallet","gold");
+		credit_type = "gold";
+	}else{
+		$(".wallet_amount").val("<?php echo $silver_wallet ?>");
+		$(".wallet_amount").attr("wallet","silver");
+		credit_type = "silver";
+	}
+
+	$.post("script/transaction.php",
+		{
+			'method'   		:'getLot',
+			'stock_id' 		: <?php echo $_GET['company'];?>,
+			'user_id'	 		: '1',
+			'credit_type' : credit_type,
+		},function(data){
+			if(data != ""){
+				$("#r_lot").val(data);
+			}else{
+				$("#r_lot").val("No Available");
+			}
+		},"text");
+
+});
+
+$("#buy_lot").on("input",function(){
+	$("#buy_amount").val(($(this).val() * 100 * $(".buy_price").val()).toFixed(4));
+});
+
+$("#sell_lot").on("input",function(){
+	$("#sell_amount").val(($(this).val() * 100 * $(".sell_price").val()).toFixed(4));
+});
+
+$("#buy_stock").click(function(){
+	if(parseFloat($("#buy_amount").val()) <= parseFloat($(".wallet_amount").val())){
+		$.post("script/transaction.php",
+		{
+			'method'			: 'buy',
+			'user_id'			: '1',
+			'lot'					: $("#buy_lot").val(),
+			'lot_price'		: $(".buy_price").val(),
+			'credit_type' : $('.wallet_amount').attr('wallet'),
+			'amount'			: parseFloat($("#buy_amount").val()),
+			'date'				: $(".transaction_date").val(),
+			'stock_id'		: <?php echo $_GET['company']; ?>
+		},function(data){
+			if(data){
+				alert("Stock Purchase Successful");
+				location.reload();
+			}else{
+				alert("Stock Purchase Fail, Please Try Again");
+			}
+
+		},'json');
+	}else{
+		alert("Your wallet not enough credit to continue");	
+	}
+});
+
+$("#sell_stock").click(function(){
+	if(parseFloat($("#r_lot").val()) >= parseFloat($("#sell_lot").val())){
+		$.post("script/transaction.php",
+		{
+			'method'			: 'sell',
+			'user_id'			: '1',
+			'lot'					: $("#sell_lot").val(),
+			'lot_price'		: $(".sell_price").val(),
+			'credit_type' : $('.wallet_amount').attr('wallet'),
+			'amount'			: parseFloat($("#sell_amount").val()),
+			'date'				: $(".transaction_date").val(),
+			'stock_id'		: <?php echo $_GET['company']; ?>
+		},function(data){
+			if(data){
+				alert("Stock Sell Successful");
+				location.reload();
+			}else{
+				alert("Stock Sell Fail, Please Try Again");
+			}
+
+		},'json');
+	}else{
+		alert("Your quantity lot is not enough to continue this transaction");	
+	}
+});
 
 </script>
 <?php include 'footer.php'?>

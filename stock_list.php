@@ -1,6 +1,6 @@
 <?php 
 include 'header.php';
-// include 'script/dbcon.php'; 
+
 ?>
 
 <div class="content-wrapper">

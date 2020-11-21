@@ -30,6 +30,9 @@ if(isset($_GET['method']) && $_GET['method'] == 'backward'){
 
 	echo json_encode(array_reverse($data));
 
+}else if(isset($_GET['method']) && $_GET['method'] == 'wallet_amount'){
+	
+	
 }
 
 

@@ -3,10 +3,18 @@
   $result = getUserDetail($conn);
 
   while($row = $result->fetch_array()){
+<<<<<<< HEAD
+      $name = $row['name'];
+      $role = $row['role'];
+      $gold = $row['gold'];
+      $silver = $row['silver'];
+      $photo = $row['image'];
+=======
       $name = (isset($row['name'])) ? $row['name'] : '';
       $role = (isset($row['role'])) ? $row['role'] : '';
       $gold = (isset($row['gold'])) ? $row['gold'] : '';
       $silver = (isset($row['silver'])) ? $row['silver'] : '';
+>>>>>>> 4dd485f45260cbb8aa24b8553834762016fa57d1
   }
   
 ?>
@@ -43,7 +51,7 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="profile-image">
-                  <img class="img-xs rounded-circle" src="assets/images/faces/face2.jpg" alt="profile image">
+                  <img class="img-xs rounded-circle" src="<?php echo $photo;?>" alt="profile image">
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">

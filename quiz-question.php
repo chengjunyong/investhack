@@ -351,6 +351,10 @@ Quiz.prototype.render = function(container) {
     var message;
     if (percentage === 1) {
       message = 'Great job! You earned RM250 as reward!';
+
+      $('.wallet-gold').html('');
+      $('.wallet-gold').fadeOut(1500);
+      
         $.ajax({
           type: "post",
           url: 'updatewallet.php',
@@ -360,6 +364,9 @@ Quiz.prototype.render = function(container) {
           },            
           dataType: "json",
           success: function(data){
+            $('.wallet-gold').fadeIn(1500);
+            $('.wallet-gold').html("RM " + data.reward);
+
             console.log("ok");
           },
           error: function() {

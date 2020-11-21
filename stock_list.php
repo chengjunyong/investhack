@@ -48,7 +48,7 @@ include 'header.php';
 																<input style='font-size:16px' type='text' class='form-control' readonly value=".round(rand(10,60)/1.413,2).">
 															</div>
 														</td>";
-											echo "<td><a href='dashboard.php?company=".$row['id']."'><button class='btn btn-primary btn-fw btn-rounded' style='font-size:17px'>Check</button></a></td>";
+											echo "<td><a href='c_dashboard.php?company=".$row['id']."'><button class='btn btn-primary btn-fw btn-rounded' style='font-size:17px'>Check</button></a></td>";
 											echo "</tr>";
 										}
 									}

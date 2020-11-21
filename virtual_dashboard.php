@@ -14,8 +14,11 @@ $silver_wallet = $wallet['silver'];
 $gold_wallet = $wallet['gold'];
 $value = $_GET['company'];
 
-$company_detail = getCompanyDetail($conn,$_GET['company']);
-$company_detail = $company_detail->fetch_assoc();
+$machine = getMachineById($conn,1);
+$machine = $machine->fetch_assoc();
+$eq = "-".$machine["date_difference"]." days";
+$currentLiveDate = date('Y-m-d', strtotime($eq,strtotime(date('Y-m-d'))));
+
 
 ?>
 
@@ -49,11 +52,6 @@ input{
 	font-size:17px !important;
 }
 
-.box{
-	box-shadow: 0px 0px 2px 0px;
-	margin:10px 0 10px 0;
-	width:20%;
-}
 </style>
 
 <div class="content-wrapper">
@@ -63,7 +61,7 @@ input{
 			<div class="card">
 				<div class="card-body" style="font-size: 18px;padding-bottom: 70px">
 					<h4>Backward Date</h4>
-					<input class="form-control" type="date" id="target_date" max="<?php echo date('Y-n-j')?>" style="width:100%;height:50px;font-size:17px">
+					<input class="form-control" type="date" id="target_date" max="<?php echo $currentLiveDate?>" style="width:100%;height:50px;font-size:17px">
 				</div>
 			</div>
 		</div>
@@ -114,7 +112,7 @@ input{
 							<button style="float:right;height:50px" class="btn btn-dark btn-rounded" id="live">Back To Live</button>
 						</div>
 						<div class="col-md-4">
-							<h5 id="dateOfGraph">Date of Graph: <?php echo date("d-M-Y"); ?></h5>
+							<h5 id="dateOfGraph">Date of Graph: <?php echo $currentLiveDate; ?></h5>
 						</div>
 						<div class="col-md-4">
 							<h5 id="price"></h5>
@@ -130,44 +128,8 @@ input{
 			<div class="card">
 				<div class="card-body">
 					<div class="col-md-12">
-						<h3>Information</h3>
-						<div class="row" style="text-align: center;margin-top: 20px">
-							<div class="col-md-4 box">
-								<h4 align="center">Renevnue<h4>
-								<label style="font-size:30px;color:green">Rm <?php echo number_format($company_detail['revenue'],2); ?></label>
-							</div>
-							<div class="col-md-4 box">
-								<h4 align="center">Profit & Loss Before Tax<h4>
-								<label style="font-size:30px;color:green">Rm <?php echo number_format($company_detail['profit_tax'],2); ?></label>
-							</div>
-							<div class="col-md-4 box">
-								<h4 align="center">Profit & Loss (Period)<h4>
-								<label style="font-size:30px;color:green">Rm <?php echo number_format($company_detail['profit_period'],2); ?></label>
-							</div>
-							<div class="col-md-4 box">
-								<h4 align="center">Earning Per Share (EPS) Sen<h4>
-								<label style="font-size:30px;color:green"><?php echo number_format($company_detail['eps'],2); ?> Sen</label>
-							</div>
-							<div class="col-md-4 box">
-								<h4 align="center">Price Earning Ratio (P/E)<h4>
-								<label style="font-size:30px;color:green"><?php echo number_format($company_detail['pe']); ?></label>
-							</div>
-							<div class="col-md-4 box">
-								<h4 align="center">Return On Equity (ROE)<h4>
-								<label style="font-size:30px;color:green"><?php echo number_format($company_detail['roe'],2); ?>%</label>
-							</div>
-							<div class="col-md-6 box">
-								<h4 align="center">Divdend Yield (DY)<h4>
-								<label style="font-size:30px;color:green"><?php echo number_format($company_detail['dy'],2); ?>%</label>
-							</div>
-							<div class="col-md-6 box">
-								<h4 align="center">Net Profit Margin <h4>
-								<label style="font-size:30px;color:green"><?php echo number_format($company_detail['profit_margin'],2); ?>%</label>
-							</div>
-							<div class="col-md-12 ">
-								<a href="companyprof.php"><button class="btn btn-success btn-rounded" style="width:50%;height:45px;font-size:20px">Check more</button></a>
-							</div>
-						</div>
+						<h4>Information</h4>
+
 					</div>
 				</div>
 			</div>
@@ -445,7 +407,7 @@ chart.subscribeCrosshairMove(function(param) {
 
 //Main Function
 var buy_price = 0,sell_price = 0;
-$.get('script/generate_date.php',
+$.get('script/generate_virtualdate.php',
 	{
 		'method' : 'current'
 	},function(data){
@@ -479,6 +441,7 @@ $("#target_date").change(function(){
 })
 
 $("#live").click(function(){
+    let date = $(this).val();
 	$.get('script/generate_date.php',
 		{
 			'method' : 'current'

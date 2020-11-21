@@ -3,12 +3,19 @@
   $result = getUserDetail($conn);
 
   while($row = $result->fetch_array()){
-      $name = (isset($row['name'])) ? $row['name'] : '';
-      $role = (isset($row['role'])) ? $row['role'] : '';
-      $gold = (isset($row['gold'])) ? $row['gold'] : '';
-      $silver = (isset($row['silver'])) ? $row['silver'] : '';
+
+    $name = $row['name'];
+    $role = $row['role'];
+    $gold = $row['gold'];
+    $silver = $row['silver'];
+    $photo = $row['image'];
+
+    $name = (isset($row['name'])) ? $row['name'] : '';
+    $role = (isset($row['role'])) ? $row['role'] : '';
+    $gold = (isset($row['gold'])) ? $row['gold'] : '';
+    $silver = (isset($row['silver'])) ? $row['silver'] : '';
+    $photo = (isset($row['image'])) ? $row['image'] : '';
   }
-  
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +50,7 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="profile-image">
-                  <img class="img-xs rounded-circle" src="assets/images/faces/face2.jpg" alt="profile image">
+                  <img class="img-xs rounded-circle" src="<?php echo $photo;?>" alt="profile image">
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
@@ -67,20 +74,10 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="true" aria-controls="ui-basic">
-                <i class="menu-icon typcn typcn-coffee"></i>
-                <span class="menu-title">Stock Exchange Market</span>
+              <a class="nav-link" href="stock_list.php">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Stock Markets</span>
               </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link active" href="stock_list.php" aria-expanded="true">Markets</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="transaction_history.php" aria-expanded="true">Transaction History</a>
-                  </li>
-                </ul>
-              </div>
             </li>
 
             <li class="nav-item">

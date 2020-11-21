@@ -350,7 +350,23 @@ Quiz.prototype.render = function(container) {
     console.log(percentage);
     var message;
     if (percentage === 1) {
-      message = 'Great job! You earned RM250 as reward!'
+      message = 'Great job! You earned RM250 as reward!';
+        $.ajax({
+          type: "post",
+          url: 'updatewallet.php',
+          data: {
+            gold : 250,
+            id : 1,
+          },            
+          dataType: "json",
+          success: function(data){
+            console.log("ok");
+          },
+          error: function() {
+              console.log("error");
+          }
+        });
+
     } else if (percentage >= .75) {
       message = 'You did alright.'
     } else if (percentage >= .5) {
@@ -364,8 +380,9 @@ Quiz.prototype.render = function(container) {
     $('#submit-button').slideUp();
     $('#next-question-button').slideUp();
     $('#prev-question-button').slideUp();
-    // $('#quiz-retry-button').sideDown();
+    // $('#quiz-retry-button').sideDown()
     $("#timer-left").remove();
+
   });
   
   // Add a listener on the questions container to listen for user select changes. This is for determining whether we can submit answers or not.
@@ -483,8 +500,7 @@ $(document).ready(function() {
 
 
 
-document.getElementById('timer').innerHTML =
-  005 + ":" + 00;
+document.getElementById('timer').innerHTML = 005 + ":" + 00;
 startTimer();
 
 function startTimer() {

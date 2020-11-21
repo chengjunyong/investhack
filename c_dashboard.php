@@ -59,7 +59,7 @@ input{
 <div class="content-wrapper">
 	<div class="row">
 
-		<div class="col-md-4 grid-margin">
+		<div class="col-md-4 grid-margin" style="display:none">
 			<div class="card">
 				<div class="card-body" style="font-size: 18px;padding-bottom: 70px">
 					<h4>Backward Date</h4>
@@ -68,7 +68,7 @@ input{
 			</div>
 		</div>
 
-		<div class="col-md-4 grid-margin">
+		<div class="col-md-6 grid-margin">
 			<div class="card">
 				<div class="card-body" style="font-size: 18px">
 					<h4>Buying Price</h4>
@@ -85,7 +85,7 @@ input{
 			</div>
 		</div>
 
-		<div class="col-md-4 grid-margin">
+		<div class="col-md-6 grid-margin">
 			<div class="card">
 				<div class="card-body" style="font-size: 18px">
 					<h4>Selling Price</h4>
@@ -111,7 +111,7 @@ input{
 							KLSE: <?php echo $company['stock_symbol']?>
 						</div >
 						<div class="col-md-6" >
-							<button style="float:right;height:50px" class="btn btn-dark btn-rounded" id="live">Back To Live</button>
+							<!-- <button style="float:right;height:50px" class="btn btn-dark btn-rounded" id="live">Back To Live</button> -->
 						</div>
 						<div class="col-md-4">
 							<h5 id="dateOfGraph">Date of Graph: <?php echo date("d-M-Y"); ?></h5>

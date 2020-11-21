@@ -35,7 +35,7 @@ include 'header.php';
 																		<i style='font-size:16px;color:white'>B</i>
 																	</span>
 																</div>
-																<input type='text' class='form-control' readonly value=".round(rand(10,60)/1.413,2)." />
+																<input style='font-size:16px' type='text' class='form-control' readonly value=".round(rand(10,60)/1.413,2)." />
 															</div>
 														</td>";
 											echo "<td>
@@ -45,7 +45,7 @@ include 'header.php';
 																		<i style='font-size:16px;color:white'>S</i>
 																	</span>
 																</div>
-																<input type='text' class='form-control' readonly value=".round(rand(10,60)/1.413,2).">
+																<input style='font-size:16px' type='text' class='form-control' readonly value=".round(rand(10,60)/1.413,2).">
 															</div>
 														</td>";
 											echo "<td><a href='dashboard.php?company=".$row['id']."'><button class='btn btn-primary btn-fw btn-rounded' style='font-size:17px'>Check</button></a></td>";
@@ -60,6 +60,7 @@ include 'header.php';
 			</div>
 		</div>
 	</div>
+
 
 
 <?php include 'footer.php'; ?>
@@ -102,6 +103,7 @@ function createGraph(target){
 		context.lineTo(left+move_left_by, the_stat);
 		context.lineWidth = 2;
 		context.lineCap = 'round';
+		context.strokeStyle = "#d89e3d";
 
 		context.stroke();
 

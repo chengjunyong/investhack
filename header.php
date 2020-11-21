@@ -67,20 +67,10 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="true" aria-controls="ui-basic">
-                <i class="menu-icon typcn typcn-coffee"></i>
-                <span class="menu-title">Stock Exchange Market</span>
+              <a class="nav-link" href="stock_list.php">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Stock Markets</span>
               </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link active" href="stock_list.php" aria-expanded="true">Markets</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="transaction_history.php" aria-expanded="true">Transaction History</a>
-                  </li>
-                </ul>
-              </div>
             </li>
 
             <li class="nav-item">

@@ -27,6 +27,13 @@ function getUserProfile($conn,$id){
 	return $result;
 }
 
+function getCompanyDetail($conn,$company_id){
+	$sql = "SELECT * FROM company_detail WHERE company_id='".$company_id."'";
+	$result = $conn->query($sql);
+
+	return $result;
+}
+
 function getUserDetail($conn){
 	$sql = "SELECT * FROM user";
 	$result = $conn->query($sql);

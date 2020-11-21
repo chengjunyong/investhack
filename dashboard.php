@@ -13,6 +13,10 @@ $wallet = $wallet->fetch_assoc();
 $silver_wallet = $wallet['silver'];  
 $gold_wallet = $wallet['gold'];
 $value = $_GET['company'];
+
+$company_detail = getCompanyDetail($conn,$_GET['company']);
+$company_detail = $company_detail->fetch_assoc();
+
 ?>
 
 <style>
@@ -45,6 +49,11 @@ input{
 	font-size:17px !important;
 }
 
+.box{
+	box-shadow: 0px 0px 2px 0px;
+	margin:10px 0 10px 0;
+	width:20%;
+}
 </style>
 
 <div class="content-wrapper">
@@ -121,8 +130,44 @@ input{
 			<div class="card">
 				<div class="card-body">
 					<div class="col-md-12">
-						<h4>Information</h4>
-
+						<h3>Information</h3>
+						<div class="row" style="text-align: center;margin-top: 20px">
+							<div class="col-md-4 box">
+								<h4 align="center">Renevnue<h4>
+								<label style="font-size:30px;color:green">Rm <?php echo number_format($company_detail['revenue'],2); ?></label>
+							</div>
+							<div class="col-md-4 box">
+								<h4 align="center">Profit & Loss Before Tax<h4>
+								<label style="font-size:30px;color:green">Rm <?php echo number_format($company_detail['profit_tax'],2); ?></label>
+							</div>
+							<div class="col-md-4 box">
+								<h4 align="center">Profit & Loss (Period)<h4>
+								<label style="font-size:30px;color:green">Rm <?php echo number_format($company_detail['profit_period'],2); ?></label>
+							</div>
+							<div class="col-md-4 box">
+								<h4 align="center">Earning Per Share (EPS) Sen<h4>
+								<label style="font-size:30px;color:green"><?php echo number_format($company_detail['eps'],2); ?> Sen</label>
+							</div>
+							<div class="col-md-4 box">
+								<h4 align="center">Price Earning Ratio (P/E)<h4>
+								<label style="font-size:30px;color:green"><?php echo number_format($company_detail['pe']); ?></label>
+							</div>
+							<div class="col-md-4 box">
+								<h4 align="center">Return On Equity (ROE)<h4>
+								<label style="font-size:30px;color:green"><?php echo number_format($company_detail['roe'],2); ?>%</label>
+							</div>
+							<div class="col-md-6 box">
+								<h4 align="center">Divdend Yield (DY)<h4>
+								<label style="font-size:30px;color:green"><?php echo number_format($company_detail['dy'],2); ?>%</label>
+							</div>
+							<div class="col-md-6 box">
+								<h4 align="center">Net Profit Margin <h4>
+								<label style="font-size:30px;color:green"><?php echo number_format($company_detail['profit_margin'],2); ?>%</label>
+							</div>
+							<div class="col-md-12 ">
+								<a href="#"><button class="btn btn-success btn-rounded" style="width:50%;height:45px;font-size:20px">Check more</button></a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

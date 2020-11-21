@@ -1,73 +1,69 @@
 <?php include 'header.php';?>
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <div class="panel-body">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <div class = "row">
-                            <div class="container" style="text-align:center;">
-                                <h1><a href="https://www.theedgemarkets.com/article/bursa-malaysia-trade-cautious-mode-next-week">Bursa Malaysia to trade cautious next week</a></h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="container" style="text-align:center;">
-                                <p>kushfligsligsklskleksnkgsnlkjs;ljgsljsglgslgsnlsnglngslsgnll</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class = "row">
-                            <div>
-                                <h1></h1>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class = "row">
-                            <div>
-                                <h1></h1>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class = "row">
-                            <div>
-                                <h1></h1>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class = "row">
-                            <div>
-                                <h1><h1>
-                            </div>
-                        </div>
-                    </li>
-        
-                    
-                </ul>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.card{
+    border-radius: 5px;
+}
+ .card:hover{
+    background-color: #e7eaed;
+ }
+</style>
+<div class="content-wrapper">
+    <div class="row page-title-header">
+        <div class="col-12">
+            <div class="page-header">
+                <h4 class="page-title">News</h4>
             </div>
         </div>
     </div>
+    <div class="row">
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function() {
-        const settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://bloomberg-market-and-financial-news.p.rapidapi.com/news/list?id=markets%7Cstocks",
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-key": "291307759cmshc15ed4d71d3f4a3p11d752jsn15634952148d",
-                "x-rapidapi-host": "bloomberg-market-and-financial-news.p.rapidapi.com"
-            }
-        };
 
-        $.ajax(settings).done(function (response) {
-            console.log(response);
-            console.log(response.modules[0]['stories']);
-        });
-    });
-</script>
+        <div class="col-md-4 grid-margin stretch-card">
+            <div id="widgetmain" style="text-align:left;overflow-y:auto;overflow-x:hidden;width:350px;background-color:#transparent; border:1px solid #150433;">
+                <div id="rsswidget" style="height:800px;">
+                    <iframe src="http://us1.rssfeedwidget.com/getrss.php?time=1605973949985&amp;x=https%3A%2F%2Fwww.cnbc.com%2Fid%2F100727362%2Fdevice%2Frss%2Frss.html&amp;w=350&amp;h=800&amp;bc=150433&amp;bw=1&amp;bgc=transparent&amp;m=20&amp;it=true&amp;t=&amp;tc=333333&amp;ts=15&amp;tb=transparent&amp;il=true&amp;lc=0000FF&amp;ls=14&amp;lb=false&amp;id=true&amp;dc=333333&amp;ds=14&amp;idt=true&amp;dtc=284F2D&amp;dts=12" border="0" hspace="0" vspace="0" frameborder="no" marginwidth="0" marginheight="0" style="border:0; padding:0; margin:0; width:350px; height:800px;" id="rssOutput">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 grid-margin stretch-card">
+
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div id="widgetmain" style="text-align:left;overflow-y:auto;overflow-x:hidden;width:750px;background-color:#transparent; border:1px solid #333333;">
+                                <div id="rsswidget" style="height:400px;">
+                                    <iframe src="http://us1.rssfeedwidget.com/getrss.php?time=1605975671405&amp;x=https%3A%2F%2Fwww.cnbc.com%2Fid%2F15839069%2Fdevice%2Frss%2Frss.html&amp;w=750&amp;h=400&amp;bc=333333&amp;bw=1&amp;bgc=transparent&amp;m=20&amp;it=true&amp;t=(default)&amp;tc=333333&amp;ts=15&amp;tb=transparent&amp;il=true&amp;lc=0000FF&amp;ls=14&amp;lb=false&amp;id=true&amp;dc=333333&amp;ds=14&amp;idt=true&amp;dtc=284F2D&amp;dts=12" border="0" hspace="0" vspace="0" frameborder="no" marginwidth="0" marginheight="0" style="border:0; padding:0; margin:0; width:750px; height:400px;" id="rssOutput">Reading RSS Feed ...</iframe>
+                                </div>
+                                <div style="text-align:right;margin-bottom:0;border-top:1px solid #333333;" id="widgetbottom">
+                                </div>
+                            </div>                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div id="widgetmain" style="text-align:left;overflow-y:auto;overflow-x:hidden;width:750px;background-color:#transparent; border:1px solid #333333;">
+                                <div id="rsswidget" style="height:200px;">
+                                    <iframe src="http://us1.rssfeedwidget.com/getrss.php?time=1605975738389&amp;x=https%3A%2F%2Fwww.cnbc.com%2Fid%2F10000664%2Fdevice%2Frss%2Frss.html&amp;w=750&amp;h=200&amp;bc=333333&amp;bw=1&amp;bgc=transparent&amp;m=20&amp;it=true&amp;t=(default)&amp;tc=333333&amp;ts=15&amp;tb=transparent&amp;il=true&amp;lc=0000FF&amp;ls=14&amp;lb=false&amp;id=true&amp;dc=333333&amp;ds=14&amp;idt=true&amp;dtc=284F2D&amp;dts=12" border="0" hspace="0" vspace="0" frameborder="no" marginwidth="0" marginheight="0" style="border:0; padding:0; margin:0; width:750px; height:200px;" id="rssOutput">Reading RSS Feed ...
+                                    </iframe>
+                                </div>
+                            </div>                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
 <?php include 'footer.php';?>

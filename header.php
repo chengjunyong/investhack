@@ -79,6 +79,36 @@
                 <span class="menu-title">Quiz Challenge</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="mentor.php">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Mentor</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="chat.php">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Chat</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="news.php">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">News</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="calendar.php">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Calendar</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="companyprof.php">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title">Company Profile</span>
+              </a>
+            </li>
 
           </ul>
         </nav>

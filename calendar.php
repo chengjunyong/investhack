@@ -1,4 +1,12 @@
 <?php include 'header.php';?>
+<div class="content-wrapper">
+    <div class="row page-title-header">
+        <div class="col-12">
+            <div class="page-header">
+                <h4 class="page-title">Calendar</h4>
+            </div>
+        </div>
+    </div>
 
 <div class="container">
   <div class="row">
@@ -91,5 +99,6 @@
   </div>
 </div>
 
+</div>
 
 <?php include 'footer.php';?>

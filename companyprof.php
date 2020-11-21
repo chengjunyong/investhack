@@ -1,12 +1,20 @@
 <?php include 'header.php';?>
 
+<div class="content-wrapper">
+    <div class="row page-title-header">
+        <div class="col-12">
+            <div class="page-header">
+                <h4 class="page-title">Company Profile</h4>
+            </div>
+        </div>
+    </div>
 
 <div class= "container">
-    <div class="row justify-content-center">
+    <!-- <div class="row justify-content-center">
         <div class="column-sm-8">
             <h1>COMPANY PROFILE</h1>
         </div>
-    </div>
+    </div> -->
     <div class= "row">
         <div class= "column-sm-3">
             <!-- TradingView Widget BEGIN -->
@@ -50,6 +58,8 @@
            
         </div>
     </div>
+</div>
+
 </div>
 
 <div class="row justify-content-center">

@@ -34,6 +34,11 @@ function getUserDetail($conn){
 	return $result;
 }
 
+function getMachineById($conn,$id){
+	$sql = "SELECT * FROM machine WHERE id=".$id;
+	$result = $conn->query($sql);
 
+	return $result;
+}
 
 ?>

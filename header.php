@@ -1,3 +1,16 @@
+<?php 
+  include 'script/dbcon.php'; 
+  $result = getUserDetail($conn);
+
+  while($row = $result->fetch_array()){
+      $name = $row['name'];
+      $role = $row['role'];
+      $gold = $row['gold'];
+      $silver = $row['silver'];
+  }
+  
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,6 +26,14 @@
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+ 
+    <style>
+    .img-xs {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+    }
+    </style>
   </head>
   <body>
     <div class="container-scroller">
@@ -22,14 +43,27 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="profile-image">
-                  <img class="img-xs rounded-circle" src="assets/images/faces/dface.png" alt="profile image">
+                  <img class="img-xs rounded-circle" src="assets/images/faces/face2.jpg" alt="profile image">
                   <div class="dot-indicator bg-success"></div>
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name">User</p>
-                  <p class="designation">Beginner</p>
+                  <p class="profile-name"><?php echo $name;?></p>
+                  <p class="designation"><?php echo $role;?></p>
                 </div>
               </a>
+              <div style="margin-top: 15px;width:250px;color:white;font-size:15px;" class="row">
+                <div class="col-6 silver-wallet" style="border-right: 1px solid white;"> 
+                  <img  src="assets/images/wallet_coin/silver-medal.png" width="16px" height="16px">
+                   <p class="wallet-silver" style="display:inline-block;color:white;"><?php echo 'RM' . $silver;?> </p>
+                 
+                </div>
+                
+                <div class="col-6 gold-wallet"> 
+                  <img  src="assets/images/wallet_coin/gold-medal.png" width="16px" height="16px">
+                   <p class="wallet-gold" style="display:inline-block;color:white;"><?php echo 'RM' . $gold;?> </p>
+                </div>
+              </div>
+
             </li>
             <li class="nav-item nav-category">Main Menu</li>
             <li class="nav-item">

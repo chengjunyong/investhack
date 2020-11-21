@@ -20,4 +20,11 @@ function getCompanyProfile($conn,$id){
 	return $result;
 }
 
+function getUserDetail($conn){
+	$sql = "SELECT * FROM user";
+	$result = $conn->query($sql);
+
+	return $result;
+}
+
 ?>

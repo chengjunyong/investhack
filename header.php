@@ -79,7 +79,7 @@
                 <span class="menu-title">Quiz Challenge</span>
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="mentor.php">
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">Mentor</span>
@@ -96,7 +96,7 @@
                 <i class="menu-icon typcn typcn-document-text"></i>
                 <span class="menu-title">News</span>
               </a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="calendar.php">
                 <i class="menu-icon typcn typcn-document-text"></i>
